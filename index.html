@@ -2,29 +2,90 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Интерьеры SAMP</title>
+<title>Каталог интерьеров SAMP</title>
 <style>
   body { font-family: sans-serif; max-width: 900px; margin: 20px auto; padding: 0 12px; background-color: #1e1e1e; color: #ddd; }
-  h1 { text-align: center; }
-  details { border: 1px solid #444; border-radius: 6px; margin: 10px 0; padding: 10px 15px; background-color: #2d2d2d; }
-  summary { cursor: pointer; font-weight: bold; font-size: 18px; color: #4da6ff; }
-  summary:hover { color: #80bfff; }
-  img { max-width: 100%; margin-top: 10px; border-radius: 4px; display: block; }
+  h1 { text-align: center; color: #fff; margin-bottom: 30px; }
+  
+  /* Стили для больших разделов (Дома, Бизнесы и т.д.) */
+  .category { border: 2px solid #4da6ff; border-radius: 8px; margin-bottom: 20px; background-color: #252525; }
+  .category > summary { font-size: 22px; color: #4da6ff; font-weight: bold; cursor: pointer; padding: 15px; background-color: #2a2a2a; border-radius: 6px; }
+  .category > summary:hover { background-color: #333; }
+  .category-content { padding: 15px; }
+  
+  /* Стили для самих интерьеров внутри разделов */
+  .interior { border: 1px solid #444; border-radius: 6px; margin-bottom: 10px; background-color: #2d2d2d; }
+  .interior > summary { cursor: pointer; padding: 10px 15px; font-size: 16px; color: #ccc; }
+  .interior > summary:hover { color: #fff; }
+  .interior > img { max-width: 100%; margin: 0 15px 15px 15px; border-radius: 4px; display: block; width: calc(100% - 30px); }
 </style>
 </head>
 <body>
+
 <h1>Каталог интерьеров SAMP</h1>
 
-<!-- ПРИМЕР 1 -->
-<details>
-  <summary>ID 1 — тест 1</summary>
-  <img src="sa-mp 002 (с выходом на улицу).jpg" alt="Интерьер 1" loading="lazy">
+<!-- ================= РАЗДЕЛ: ДОМА ================= -->
+<details class="category">
+  <summary>[Дома]</summary>
+  <div class="category-content">
+    
+    <!-- Примеры интерьеров в разделе Дома -->
+    <details class="interior">
+      <summary>ID 1 — Название дома</summary>
+      <img src="001.jpg" alt="Дом 1" loading="lazy">
+    </details>
+
+    <details class="interior">
+      <summary>ID 2 — Название дома</summary>
+      <img src="002.jpg" alt="Дом 2" loading="lazy">
+    </details>
+
+  </div>
 </details>
 
-<!-- ПРИМЕР 2 -->
-<details>
-  <summary>ID 2 — тест 2</summary>
-  <img src="002.jpg" alt="Интерьер 2" loading="lazy">
+<!-- ================= РАЗДЕЛ: БИЗНЕСЫ ================= -->
+<details class="category">
+  <summary>[Бизнесы]</summary>
+  <div class="category-content">
+    
+    <!-- Примеры интерьеров в разделе Бизнесы -->
+    <details class="interior">
+      <summary>ID 10 — Название бизнеса</summary>
+      <img src="010.jpg" alt="Бизнес 10" loading="lazy">
+    </details>
+
+    <details class="interior">
+      <summary>ID 11 — Название бизнеса</summary>
+      <img src="011.jpg" alt="Бизнес 11" loading="lazy">
+    </details>
+
+  </div>
+</details>
+
+<!-- ================= РАЗДЕЛ: ДРУГОЕ ================= -->
+<details class="category">
+  <summary>[Другое]</summary>
+  <div class="category-content">
+    
+    <details class="interior">
+      <summary>ID 20 — Название интерьера</summary>
+      <img src="020.jpg" alt="Интерьер 20" loading="lazy">
+    </details>
+
+  </div>
+</details>
+
+<!-- ================= РАЗДЕЛ: НЕИСПОЛЬЗУЕМОЕ ================= -->
+<details class="category">
+  <summary>[Неиспользуемое]</summary>
+  <div class="category-content">
+    
+    <details class="interior">
+      <summary>ID 30 — Название интерьера</summary>
+      <img src="030.jpg" alt="Интерьер 30" loading="lazy">
+    </details>
+
+  </div>
 </details>
 
 </body>
