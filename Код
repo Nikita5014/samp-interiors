@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Интерьеры SAMP</title>
+<style>
+  body { font-family: sans-serif; max-width: 900px; margin: 20px auto; padding: 0 12px; background-color: #1e1e1e; color: #ddd; }
+  h1 { text-align: center; }
+  details { border: 1px solid #444; border-radius: 6px; margin: 10px 0; padding: 10px 15px; background-color: #2d2d2d; }
+  summary { cursor: pointer; font-weight: bold; font-size: 18px; color: #4da6ff; }
+  summary:hover { color: #80bfff; }
+  img { max-width: 100%; margin-top: 10px; border-radius: 4px; display: block; }
+</style>
+</head>
+<body>
+<h1>Каталог интерьеров SAMP</h1>
+
+<!-- ПРИМЕР 1 -->
+<details>
+  <summary>ID 1 — тест 1</summary>
+  <img src="sa-mp 002 (с выходом на улицу).jpg" alt="Интерьер 1" loading="lazy">
+</details>
+
+<!-- ПРИМЕР 2 -->
+<details>
+  <summary>ID 2 — тест 2</summary>
+  <img src="002.jpg" alt="Интерьер 2" loading="lazy">
+</details>
+
+</body>
+</html>
