@@ -2,22 +2,131 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Каталог интерьеров SAMP</title>
 <style>
-  body { font-family: sans-serif; max-width: 900px; margin: 20px auto; padding: 0 12px; background-color: #1e1e1e; color: #ddd; }
-  h1 { text-align: center; color: #fff; margin-bottom: 30px; }
+  /* Базовые настройки и фон */
+  body { 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+    max-width: 900px; 
+    margin: 40px auto; 
+    padding: 0 20px; 
+    background-color: #121212; 
+    color: #e0e0e0; 
+    line-height: 1.5;
+  }
   
-  /* Стили для больших разделов (Дома, Бизнесы и т.д.) */
-  .category { border: 2px solid #4da6ff; border-radius: 8px; margin-bottom: 20px; background-color: #252525; }
-  .category > summary { font-size: 22px; color: #4da6ff; font-weight: bold; cursor: pointer; padding: 15px; background-color: #2a2a2a; border-radius: 6px; }
-  .category > summary:hover { background-color: #333; }
-  .category-content { padding: 15px; }
-  
-  /* Стили для самих интерьеров внутри разделов */
-  .interior { border: 1px solid #444; border-radius: 6px; margin-bottom: 10px; background-color: #2d2d2d; }
-  .interior > summary { cursor: pointer; padding: 10px 15px; font-size: 16px; color: #ccc; }
-  .interior > summary:hover { color: #fff; }
-  .interior > img { max-width: 100%; margin: 0 15px 15px 15px; border-radius: 4px; display: block; width: calc(100% - 30px); }
+  h1 { 
+    text-align: center; 
+    color: #ffffff; 
+    margin-bottom: 40px; 
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  /* Убираем стандартные маркеры у всех спойлеров */
+  summary { list-style: none; outline: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  /* ================= БОЛЬШИЕ РАЗДЕЛЫ ================= */
+  .category { 
+    margin-bottom: 25px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    overflow: hidden;
+    border: 1px solid #333;
+  }
+
+  .category > summary { 
+    font-size: 20px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    padding: 18px 20px; 
+    background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
+    color: #ffffff; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+  }
+
+  .category > summary:hover { 
+    background: linear-gradient(145deg, #333333, #252525);
+  }
+
+  /* Красивая стрелочка для разделов (плюс/минус) */
+  .category > summary::after {
+    content: '+';
+    font-size: 24px;
+    color: #4da6ff;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .category[open] > summary::after {
+    content: '−';
+    color: #ff4d4d;
+  }
+
+  .category-content { 
+    padding: 15px 20px; 
+    background-color: #181818;
+    border-top: 1px solid #333;
+  }
+
+  /* ================= КАРТОЧКИ ИНТЕРЬЕРОВ ================= */
+  .interior { 
+    margin-bottom: 12px; 
+    border-radius: 8px; 
+    background-color: #242424;
+    border: 1px solid #333;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .interior:hover {
+    border-color: #4da6ff;
+    transform: translateX(4px); /* Легкий сдвиг вправо при наведении */
+  }
+
+  .interior > summary { 
+    cursor: pointer; 
+    padding: 14px 18px; 
+    font-size: 16px; 
+    color: #b0b0b0; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+
+  .interior > summary:hover { 
+    color: #ffffff; 
+  }
+
+  /* Иконка раскрытия для карточек */
+  .interior > summary::after {
+    content: '▼';
+    font-size: 12px;
+    color: #666;
+    transition: transform 0.3s ease;
+  }
+  .interior[open] > summary::after {
+    transform: rotate(180deg);
+    color: #4da6ff;
+  }
+  .interior[open] > summary {
+    border-bottom: 1px solid #333;
+    color: #4da6ff;
+  }
+
+  /* Картинка внутри карточки */
+  .interior > img { 
+    max-width: 100%; 
+    display: block; 
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
 </style>
 </head>
 <body>
@@ -29,7 +138,6 @@
   <summary>[Дома]</summary>
   <div class="category-content">
     
-    <!-- Примеры интерьеров в разделе Дома -->
     <details class="interior">
       <summary>ID 1 — Название дома</summary>
       <img src="001.jpg" alt="Дом 1" loading="lazy">
@@ -48,15 +156,9 @@
   <summary>[Бизнесы]</summary>
   <div class="category-content">
     
-    <!-- Примеры интерьеров в разделе Бизнесы -->
     <details class="interior">
       <summary>ID 10 — Название бизнеса</summary>
       <img src="010.jpg" alt="Бизнес 10" loading="lazy">
-    </details>
-
-    <details class="interior">
-      <summary>ID 11 — Название бизнеса</summary>
-      <img src="011.jpg" alt="Бизнес 11" loading="lazy">
     </details>
 
   </div>
