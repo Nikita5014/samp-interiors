@@ -387,12 +387,15 @@
   });
 
   // --- ЗАПУСК ---
-  mapImage.onload = () => {
-    mapImage.src = mapImageUrl;
+  mapImage.src = mapImageUrl; // Устанавливаем картинку 1 раз
+  
+  // Если картинка уже загрузилась из кэша, запускаем данные сразу, 
+  // иначе ждем события загрузки
+  if (mapImage.complete) {
     loadData();
-  };
-  mapImage.src = mapImageUrl;
-  if (mapImage.complete) loadData();
+  } else {
+    mapImage.onload = loadData;
+  }
 </script>
 
 </body>
