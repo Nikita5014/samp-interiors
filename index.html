@@ -293,17 +293,20 @@
     }
   }
 
-  // --- ОТРИСОВКА МЕТОК ---
+// --- ОТРИСОВКА МЕТОК ---
   function renderMarkers() {
     markersContainer.innerHTML = '';
 
     businesses.forEach((biz) => {
       const marker = document.createElement('div');
       marker.style.position = 'absolute';
-      marker.style.left = `calc(${biz.x}% - 10px)`;
-      marker.style.top = `calc(${biz.y}% - 10px)`;
-      marker.style.width = '20px';
-      marker.style.height = '20px';
+      // Используем transform для точного центрирования (не зависит от зума)
+      marker.style.left = `${biz.x}%`;
+      marker.style.top = `${biz.y}%`;
+      marker.style.transform = 'translate(-50%, -50%)'; 
+      
+      marker.style.width = '16px';
+      marker.style.height = '16px';
       marker.style.borderRadius = '50%';
       marker.style.border = '3px solid #fff';
       marker.style.boxShadow = '0 2px 5px rgba(0,0,0,0.5)';
@@ -315,13 +318,18 @@
       else if (biz.type === 'car') marker.style.backgroundColor = '#ffd700';
       else marker.style.backgroundColor = '#ffffff';
 
-      marker.onmouseover = () => marker.style.transform = 'scale(1.3)';
-      marker.onmouseout = () => marker.style.transform = 'scale(1)';
+      // Эффект при наведении (объединяем с центрированием)
+      marker.onmouseover = () => marker.style.transform = 'translate(-50%, -50%) scale(1.3)';
+      marker.onmouseout = () => marker.style.transform = 'translate(-50%, -50%) scale(1)';
 
       marker.onclick = (e) => {
         e.stopPropagation();
         alert(`Бизнес: ${biz.name}\nТип: ${biz.type}\nКоординаты: ${biz.x}, ${biz.y}`);
       };
+
+      markersContainer.appendChild(marker);
+    });
+  }
 
       markersContainer.appendChild(marker);
     });
@@ -349,9 +357,18 @@
   mapContainer.addEventListener('click', async (e) => {
     if (!isAddMode || !isAdmin) return;
 
-    const rect = mapContainer.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    // Получаем координаты именно КАРТИНКИ, а не контейнера
+    const imgRect = mapImage.getBoundingClientRect();
+    
+    // Проверяем, что клик был именно по картинке, а не по черным полям
+    if (e.clientX < imgRect.left || e.clientX > imgRect.right || 
+        e.clientY < imgRect.top || e.clientY > imgRect.bottom) {
+      return; 
+    }
+
+    // Вычисляем координаты в процентах от размера картинки
+    const x = ((e.clientX - imgRect.left) / imgRect.width) * 100;
+    const y = ((e.clientY - imgRect.top) / imgRect.height) * 100;
 
     const name = prompt("Введите название бизнеса:");
     if (!name) return;
@@ -360,8 +377,8 @@
     const newBiz = {
       id: businesses.length > 0 ? Math.max(...businesses.map(b => Number(b.id))) + 1 : 1,
       name: name,
-      x: parseFloat(x.toFixed(2)),
-      y: parseFloat(y.toFixed(2)),
+      x: parseFloat(x.toFixed(3)), // Сохраняем с точностью до 3 знаков
+      y: parseFloat(y.toFixed(3)),
       type: type || 'other'
     };
 
