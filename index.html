@@ -49,84 +49,50 @@
     transition: background 0.3s ease;
   }
 
-  .category > summary:hover { 
-    background: linear-gradient(145deg, #333333, #252525);
-  }
-
-  .category > summary::after {
-    content: '+';
-    font-size: 24px;
-    color: #4da6ff;
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-  .category[open] > summary::after {
-    content: '−';
-    color: #ff4d4d;
-  }
-
-  .category-content { 
-    padding: 15px 20px; 
-    background-color: #181818;
-    border-top: 1px solid #333;
-  }
+  .category > summary:hover { background: linear-gradient(145deg, #333333, #252525); }
+  .category > summary::after { content: '+'; font-size: 24px; color: #4da6ff; transition: 0.3s; }
+  .category[open] > summary::after { content: '−'; color: #ff4d4d; }
+  .category-content { padding: 15px 20px; background-color: #181818; border-top: 1px solid #333; }
 
   /* ================= КАРТОЧКИ ИНТЕРЬЕРОВ ================= */
-  .interior { 
-    margin-bottom: 12px; 
-    border-radius: 8px; 
-    background-color: #242424;
-    border: 1px solid #333;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .interior:hover {
-    border-color: #4da6ff;
-    transform: translateX(4px);
-  }
-
-  .interior > summary { 
-    cursor: pointer; 
-    padding: 14px 18px; 
-    font-size: 16px; 
-    color: #b0b0b0; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: color 0.2s ease;
-  }
-
-  .interior > summary:hover { 
-    color: #ffffff; 
-  }
-
-  .interior > summary::after {
-    content: '▼';
-    font-size: 12px;
-    color: #666;
-    transition: transform 0.3s ease;
-  }
-  .interior[open] > summary::after {
-    transform: rotate(180deg);
-    color: #4da6ff;
-  }
-  .interior[open] > summary {
-    border-bottom: 1px solid #333;
-    color: #4da6ff;
-  }
-
-  .interior > img { 
-    max-width: 100%; 
-    display: block; 
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 8px;
-    box-sizing: border-box;
-  }
+  .interior { margin-bottom: 12px; border-radius: 8px; background-color: #242424; border: 1px solid #333; transition: 0.2s; }
+  .interior:hover { border-color: #4da6ff; transform: translateX(4px); }
+  .interior > summary { cursor: pointer; padding: 14px 18px; font-size: 16px; color: #b0b0b0; display: flex; justify-content: space-between; align-items: center; }
+  .interior > summary:hover { color: #ffffff; }
+  .interior > summary::after { content: '▼'; font-size: 12px; color: #666; transition: transform 0.3s; }
+  .interior[open] > summary::after { transform: rotate(180deg); color: #4da6ff; }
+  .interior[open] > summary { border-bottom: 1px solid #333; color: #4da6ff; }
+  .interior > img { max-width: 100%; display: block; margin: 0 auto; padding: 10px; border-radius: 8px; box-sizing: border-box; }
   
-  /* Стили для карты */
+  /* ================= КАРТА ================= */
   .map-wrapper { position: relative; width: 100%; height: 600px; background: #222; border-radius: 8px; overflow: hidden; border: 1px solid #444; cursor: grab; }
   .map-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-origin: 0 0; }
   #map-image { width: 100%; height: 100%; object-fit: contain; user-select: none; pointer-events: none; }
+  
+  /* Стили для иконок на карте */
+  .map-marker { position: absolute; transform: translate(-50%, -50%); width: 20px; height: 20px; cursor: pointer; transition: transform 0.2s; z-index: 10; }
+  .map-marker:hover { transform: translate(-50%, -50%) scale(1.4); z-index: 20; }
+  .map-marker img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8)); }
+
+  /* Панель фильтров */
+  .filter-panel { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; background: #222; padding: 15px; border-radius: 8px; border: 1px solid #333; }
+  .filter-item { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 14px; background: #2d2d2d; padding: 5px 10px; border-radius: 6px; border: 1px solid #444; transition: 0.2s; user-select: none; }
+  .filter-item:hover { background: #383838; }
+  .filter-item input { cursor: pointer; accent-color: #4da6ff; }
+  .filter-item img { width: 16px; height: 16px; }
+
+  /* Стили для модального окна добавления */
+  .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
+  .modal-window { background: #2b2b2b; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #444; }
+  .modal-window h3 { margin-top: 0; color: #fff; text-align: center; }
+  .modal-window input, .modal-window select { width: 100%; padding: 10px; margin-bottom: 15px; background: #1e1e1e; border: 1px solid #444; color: #fff; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 16px; }
+  .modal-window select { cursor: pointer; }
+  .modal-buttons { display: flex; gap: 10px; }
+  .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.2s; }
+  .btn-save { background: #4da6ff; color: #fff; }
+  .btn-save:hover { background: #3a8ecc; }
+  .btn-cancel { background: #444; color: #fff; }
+  .btn-cancel:hover { background: #555; }
 </style>
 </head>
 <body>
@@ -137,68 +103,27 @@
 <details class="category">
   <summary>[Дома]</summary>
   <div class="category-content">
-    
     <details class="interior">
       <summary>ID 1 — Название дома</summary>
       <img src="001.jpg" alt="Дом 1" loading="lazy">
     </details>
-
-    <details class="interior">
-      <summary>ID 2 — Название дома</summary>
-      <img src="002.jpg" alt="Дом 2" loading="lazy">
-    </details>
-
-  </div>
-</details>
-
-<!-- ================= РАЗДЕЛ: БИЗНЕСЫ ================= -->
-<details class="category">
-  <summary>[Бизнесы]</summary>
-  <div class="category-content">
-    
-    <details class="interior">
-      <summary>ID 10 — Название бизнеса</summary>
-      <img src="010.jpg" alt="Бизнес 10" loading="lazy">
-    </details>
-
-  </div>
-</details>
-
-<!-- ================= РАЗДЕЛ: ДРУГОЕ ================= -->
-<details class="category">
-  <summary>[Другое]</summary>
-  <div class="category-content">
-    
-    <details class="interior">
-      <summary>ID 20 — Название интерьера</summary>
-      <img src="020.jpg" alt="Интерьер 20" loading="lazy">
-    </details>
-
-  </div>
-</details>
-
-<!-- ================= РАЗДЕЛ: НЕИСПОЛЬЗУЕМОЕ ================= -->
-<details class="category">
-  <summary>[Неиспользуемое]</summary>
-  <div class="category-content">
-    
-    <details class="interior">
-      <summary>ID 30 — Название интерьера</summary>
-      <img src="030.jpg" alt="Интерьер 30" loading="lazy">
-    </details>
-
   </div>
 </details>
 
 <!-- ================= РАЗДЕЛ: КАРТА БИЗНЕСОВ ================= -->
-<details class="category" id="map-category">
+<details class="category" id="map-category" open>
   <summary>[Карта бизнесов]</summary>
   <div class="category-content">
     
-    <!-- Панель управления -->
-    <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center;">
+    <!-- Панель управления админа -->
+    <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap;">
       <button id="btn-add-mode" style="padding: 10px 15px; background: #4da6ff; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; display: none;">➕ Добавить точку</button>
       <span id="mode-indicator" style="color: #888; font-size: 14px;">Режим: просмотр</span>
+    </div>
+
+    <!-- ПАНЕЛЬ ФИЛЬТРОВ -->
+    <div class="filter-panel" id="filter-panel">
+      <!-- Чекбоксы будут сгенерированы через JS -->
     </div>
 
     <!-- Контейнер для карты -->
@@ -215,22 +140,51 @@
   </div>
 </details>
 
+<!-- Модальное окно добавления точки -->
+<div id="add-modal" class="modal-overlay">
+  <div class="modal-window">
+    <h3>Новый бизнес</h3>
+    <input type="text" id="modal-name" placeholder="Название бизнеса" autocomplete="off">
+    <select id="modal-type">
+      <!-- Опции добавятся через JS -->
+    </select>
+    <div class="modal-buttons">
+      <button class="btn-cancel" id="modal-btn-cancel">Отмена</button>
+      <button class="btn-save" id="modal-btn-save">Сохранить</button>
+    </div>
+  </div>
+</div>
+
 <!-- Подключаем Panzoom -->
 <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
 
 <script>
   // =====================================================================
-  // НАСТРОЙКИ (ЗАМЕНИТЕ НА СВОИ)
+  // НАСТРОЙКИ
   // =====================================================================
   
-  // Вставьте сюда URL вашего веб-приложения из Google Apps Script (заканчивается на /exec)
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGkRlXWeIrpfARJASsHkx5iUvF_lbDhk_mL056khOjqZu11g1z2UqUgmFHkpVqinle/exec";
-  
-  // Ссылка на картинку карты (можете заменить на свою)
   const mapImageUrl = "https://www.zastavki.com/pictures/1280x1024/2015/_World_Map_Grand_Theft_Auto_093972_10.jpg";
 
+  const CATEGORIES = {
+    'Оружейная':       { icon: 'https://sampwiki.blast.hk/wroot/images2/e/e7/Icon_6.gif' },
+    'Парикмахерская':  { icon: 'https://sampwiki.blast.hk/wroot/images2/f/f1/Icon_7.gif' },
+    'Бургерная':       { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_10.gif' },
+    'Пицца':           { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_29.gif' },
+    'Клакин-Белл':     { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_14.gif' },
+    'Автосалон':       { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_55.gif' },
+    'Клуб':            { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_48.gif' },
+    'Бар':             { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_49.gif' },
+    'Кафе':            { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_50.gif' },
+    'Банк':            { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_52.gif' },
+    'Магазин одежды':  { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_45.gif' },
+    'Татуировки':      { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_39.gif' },
+    'Казино':          { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_44.gif' },
+    'Другое':          { icon: 'https://sampwiki.blast.hk/wiki/Image:Icon_38.gif' }
+  };
+
   // =====================================================================
-  // ЛОГИКА (МЕНЯТЬ НЕ НУЖНО)
+  // ЛОГИКА
   // =====================================================================
 
   const mapImage = document.getElementById('map-image');
@@ -239,18 +193,61 @@
   const markersContainer = document.getElementById('markers-container');
   const btnAddMode = document.getElementById('btn-add-mode');
   const modeIndicator = document.getElementById('mode-indicator');
+  const filterPanel = document.getElementById('filter-panel');
+  
+  const modal = document.getElementById('add-modal');
+  const modalName = document.getElementById('modal-name');
+  const modalType = document.getElementById('modal-type');
+  const modalBtnCancel = document.getElementById('modal-btn-cancel');
+  const modalBtnSave = document.getElementById('modal-btn-save');
 
   let isAdmin = false;
   let isAddMode = false;
   let businesses = [];
+  let activeFilters = new Set(Object.keys(CATEGORIES));
+  let currentCoords = { x: 0, y: 0 };
 
-  // Инициализация Panzoom
-  const panzoom = Panzoom(mapLayer, {
-    maxScale: 5,
-    minScale: 1,
-    contain: 'outside'
-  });
+  const panzoom = Panzoom(mapLayer, { maxScale: 5, minScale: 1, contain: 'outside' });
   mapContainer.addEventListener('wheel', panzoom.zoomWithWheel);
+
+  // --- ГЕНЕРАЦИЯ СПИСКА В ОКНЕ ВЫБОРА ---
+  function populateSelect() {
+    modalType.innerHTML = '';
+    for (const key of Object.keys(CATEGORIES)) {
+      const option = document.createElement('option');
+      option.value = key;
+      option.textContent = key;
+      modalType.appendChild(option);
+    }
+  }
+
+  // --- ГЕНЕРАЦИЯ ПАНЕЛИ ФИЛЬТРОВ ---
+  function renderFilters() {
+    filterPanel.innerHTML = '';
+    for (const [key, cat] of Object.entries(CATEGORIES)) {
+      const label = document.createElement('label');
+      label.className = 'filter-item';
+      
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = activeFilters.has(key);
+      checkbox.onchange = (e) => {
+        if (e.target.checked) activeFilters.add(key);
+        else activeFilters.delete(key);
+        renderMarkers();
+      };
+
+      const img = document.createElement('img');
+      img.src = cat.icon;
+
+      const text = document.createTextNode(key);
+
+      label.appendChild(checkbox);
+      label.appendChild(img);
+      label.appendChild(text);
+      filterPanel.appendChild(label);
+    }
+  }
 
   // --- СЕКРЕТНЫЙ ВХОД (Ctrl + Shift + A) ---
   document.addEventListener('keydown', (e) => {
@@ -271,11 +268,6 @@
 
   // --- ЗАГРУЗКА ДАННЫХ ---
   async function loadData() {
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("ВАШ_URL")) {
-      modeIndicator.innerText = "Укажите APPS_SCRIPT_URL в коде";
-      modeIndicator.style.color = "#ff4d4d";
-      return;
-    }
     try {
       const response = await fetch(APPS_SCRIPT_URL);
       const data = await response.json();
@@ -293,34 +285,27 @@
     markersContainer.innerHTML = '';
 
     businesses.forEach((biz) => {
+      const bizType = biz.type ? biz.type.toString().trim() : 'Другое';
+      const finalType = CATEGORIES[bizType] ? bizType : 'Другое';
+
+      if (!activeFilters.has(finalType)) return;
+
+      const catInfo = CATEGORIES[finalType];
+
       const marker = document.createElement('div');
-      marker.style.position = 'absolute';
-      // Позиционируем строго по координатам (без вычитания пикселей)
+      marker.className = 'map-marker';
       marker.style.left = `${biz.x}%`;
       marker.style.top = `${biz.y}%`;
-      // Центрируем саму точку ровно по этим координатам
-      marker.style.transform = 'translate(-50%, -50%)'; 
       
-      marker.style.width = '16px';
-      marker.style.height = '16px';
-      marker.style.borderRadius = '50%';
-      marker.style.border = '3px solid #fff';
-      marker.style.boxShadow = '0 2px 5px rgba(0,0,0,0.5)';
-      marker.style.cursor = 'pointer';
-      marker.style.transition = 'transform 0.2s';
-      
-      if (biz.type === 'weapon') marker.style.backgroundColor = '#ff4d4d';
-      else if (biz.type === 'food') marker.style.backgroundColor = '#4da6ff';
-      else if (biz.type === 'car') marker.style.backgroundColor = '#ffd700';
-      else marker.style.backgroundColor = '#ffffff';
+      const img = document.createElement('img');
+      img.src = catInfo.icon;
+      img.alt = finalType;
 
-      // Анимация при наведении
-      marker.onmouseover = () => marker.style.transform = 'translate(-50%, -50%) scale(1.3)';
-      marker.onmouseout = () => marker.style.transform = 'translate(-50%, -50%) scale(1)';
+      marker.appendChild(img);
 
       marker.onclick = (e) => {
         e.stopPropagation();
-        alert(`Бизнес: ${biz.name}\nТип: ${biz.type}\nКоординаты: ${biz.x}, ${biz.y}`);
+        alert(`Бизнес: ${biz.name}\nКатегория: ${finalType}\nКоординаты: ${biz.x}, ${biz.y}`);
       };
 
       markersContainer.appendChild(marker);
@@ -345,36 +330,48 @@
     }
   };
 
-  // --- КЛИК ПО КАРТЕ (ДОБАВЛЕНИЕ ТОЧКИ) ---
-  mapContainer.addEventListener('click', async (e) => {
+  // --- КЛИК ПО КАРТЕ (ВЫЗОВ ОКНА) ---
+  mapContainer.addEventListener('click', (e) => {
     if (!isAddMode || !isAdmin) return;
 
-    // Получаем координаты именно КАРТИНКИ, а не контейнера
     const imgRect = mapImage.getBoundingClientRect();
-    
-    // Проверяем, что клик был именно по картинке, а не по черным полям
-    if (e.clientX < imgRect.left || e.clientX > imgRect.right || 
-        e.clientY < imgRect.top || e.clientY > imgRect.bottom) {
-      return; 
+    if (e.clientX < imgRect.left || e.clientX > imgRect.right || e.clientY < imgRect.top || e.clientY > imgRect.bottom) return;
+
+    currentCoords.x = ((e.clientX - imgRect.left) / imgRect.width) * 100;
+    currentCoords.y = ((e.clientY - imgRect.top) / imgRect.height) * 100;
+
+    modalName.value = '';
+    modalType.value = 'Другое';
+    modal.style.display = 'flex';
+    modalName.focus();
+  });
+
+  // --- КНОПКА ОТМЕНА ---
+  modalBtnCancel.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  // --- КНОПКА СОХРАНИТЬ ---
+  modalBtnSave.onclick = async () => {
+    const name = modalName.value.trim();
+    const type = modalType.value;
+
+    if (!name) {
+      alert("Пожалуйста, введите название бизнеса.");
+      return;
     }
-
-    // Вычисляем координаты в процентах от размера картинки
-    const x = ((e.clientX - imgRect.left) / imgRect.width) * 100;
-    const y = ((e.clientY - imgRect.top) / imgRect.height) * 100;
-
-    const name = prompt("Введите название бизнеса:");
-    if (!name) return;
-    const type = prompt("Введите тип (weapon, food, car, other):", "other");
 
     const newBiz = {
       id: businesses.length > 0 ? Math.max(...businesses.map(b => Number(b.id))) + 1 : 1,
       name: name,
-      x: parseFloat(x.toFixed(3)), // Точность до 3 знаков после запятой
-      y: parseFloat(y.toFixed(3)),
-      type: type || 'other'
+      x: parseFloat(currentCoords.x.toFixed(3)),
+      y: parseFloat(currentCoords.y.toFixed(3)),
+      type: type
     };
 
-    btnAddMode.innerText = 'Сохранение...';
+    modalBtnSave.innerText = 'Сохранение...';
+    modalBtnSave.disabled = true;
+
     try {
       await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
@@ -383,20 +380,25 @@
       
       businesses.push(newBiz);
       renderMarkers();
+      
+      modal.style.display = 'none';
       alert("Точка успешно добавлена в таблицу!");
+      
+      if (isAddMode) btnAddMode.click();
+
     } catch (error) {
-      alert("Ошибка при сохранении. Проверьте настройки.");
+      alert("Ошибка при сохранении.");
       console.error(error);
     } finally {
-      btnAddMode.innerText = '➕ Добавить точку';
-      btnAddMode.style.background = '#4da6ff';
-      isAddMode = false;
-      mapContainer.style.cursor = 'grab';
+      modalBtnSave.innerText = 'Сохранить';
+      modalBtnSave.disabled = false;
     }
-  });
+  };
 
   // --- ЗАПУСК ---
   mapImage.src = mapImageUrl;
+  populateSelect();
+  renderFilters();
   
   if (mapImage.complete) {
     loadData();
