@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Каталог интерьеров SAMP</title>
 <style>
-  /* Базовые настройки и фон */
   body { 
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
     max-width: 900px; 
@@ -25,7 +24,6 @@
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
-  /* Убираем стандартные маркеры у всех спойлеров */
   summary { list-style: none; outline: none; }
   summary::-webkit-details-marker { display: none; }
 
@@ -55,7 +53,6 @@
     background: linear-gradient(145deg, #333333, #252525);
   }
 
-  /* Красивая стрелочка для разделов (плюс/минус) */
   .category > summary::after {
     content: '+';
     font-size: 24px;
@@ -84,7 +81,7 @@
 
   .interior:hover {
     border-color: #4da6ff;
-    transform: translateX(4px); /* Легкий сдвиг вправо при наведении */
+    transform: translateX(4px);
   }
 
   .interior > summary { 
@@ -102,7 +99,6 @@
     color: #ffffff; 
   }
 
-  /* Иконка раскрытия для карточек */
   .interior > summary::after {
     content: '▼';
     font-size: 12px;
@@ -118,7 +114,6 @@
     color: #4da6ff;
   }
 
-  /* Картинка внутри карточки */
   .interior > img { 
     max-width: 100%; 
     display: block; 
@@ -140,12 +135,12 @@
     
     <details class="interior">
       <summary>ID 1 — Название дома</summary>
-      <img src="20lqeGBDoVgYBzLqvGlnbGOgJ1s_7GhvRg8ADxfhS3SHtOnM0BAekkJPLhcB9QZmhBsjiD_qVWssA8oPolc-Yrwn.jpg" alt="Дом 1" loading="lazy">
+      <img src="001.jpg" alt="Дом 1" loading="lazy">
     </details>
 
     <details class="interior">
       <summary>ID 2 — Название дома</summary>
-      <img src="20lqeGBDoVgYBzLqvGlnbGOgJ1s_7GhvRg8ADxfhS3SHtOnM0BAekkJPLhcB9QZmhBsjiD_qVWssA8oPolc-Yrwn.jpg" alt="Дом 2" loading="lazy">
+      <img src="002.jpg" alt="Дом 2" loading="lazy">
     </details>
 
   </div>
@@ -158,7 +153,7 @@
     
     <details class="interior">
       <summary>ID 10 — Название бизнеса</summary>
-      <img src=20lqeGBDoVgYBzLqvGlnbGOgJ1s_7GhvRg8ADxfhS3SHtOnM0BAekkJPLhcB9QZmhBsjiD_qVWssA8oPolc-Yrwn.jpg" alt="Бизнес 10" loading="lazy">
+      <img src="010.jpg" alt="Бизнес 10" loading="lazy">
     </details>
 
   </div>
@@ -171,7 +166,7 @@
     
     <details class="interior">
       <summary>ID 20 — Название интерьера</summary>
-      <img src="20lqeGBDoVgYBzLqvGlnbGOgJ1s_7GhvRg8ADxfhS3SHtOnM0BAekkJPLhcB9QZmhBsjiD_qVWssA8oPolc-Yrwn.jpg" alt="Интерьер 20" loading="lazy">
+      <img src="020.jpg" alt="Интерьер 20" loading="lazy">
     </details>
 
   </div>
@@ -184,11 +179,221 @@
     
     <details class="interior">
       <summary>ID 30 — Название интерьера</summary>
-      <img src="20lqeGBDoVgYBzLqvGlnbGOgJ1s_7GhvRg8ADxfhS3SHtOnM0BAekkJPLhcB9QZmhBsjiD_qVWssA8oPolc-Yrwn.jpg" alt="Интерьер 30" loading="lazy">
+      <img src="030.jpg" alt="Интерьер 30" loading="lazy">
     </details>
 
   </div>
 </details>
+
+<!-- ================= РАЗДЕЛ: КАРТА БИЗНЕСОВ ================= -->
+<details class="category" id="map-category">
+  <summary>[Карта бизнесов]</summary>
+  <div class="category-content">
+    
+    <!-- Панель управления -->
+    <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center;">
+      <button id="btn-add-mode" style="padding: 10px 15px; background: #4da6ff; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">➕ Добавить точку</button>
+      <span id="mode-indicator" style="color: #888; font-size: 14px;">Режим: просмотр</span>
+    </div>
+
+    <!-- Контейнер для карты -->
+    <div id="map-container" style="position: relative; width: 100%; height: 600px; background: #222; border-radius: 8px; overflow: hidden; border: 1px solid #444; cursor: grab;">
+      
+      <!-- Слой, который двигается -->
+      <div id="map-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-origin: 0 0;">
+        
+        <!-- Картинка карты (замените на свою при желании) -->
+        <img id="map-image" style="width: 100%; height: 100%; object-fit: contain; user-select: none; pointer-events: none;">
+        
+        <!-- Слой с метками -->
+        <div id="markers-container"></div>
+
+      </div>
+    </div>
+    <p style="text-align: center; font-size: 14px; color: #888; margin-top: 10px;">
+      * Зажмите ЛКМ, чтобы перетащить карту. Колесико мыши — для приближения.
+    </p>
+
+  </div>
+</details>
+
+<!-- Подключаем Panzoom -->
+<script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+
+<script>
+  // =====================================================================
+  // НАСТРОЙКИ (ЗАМЕНИТЕ НА СВОИ)
+  // =====================================================================
+  
+  // URL вашего веб-приложения из Google Apps Script (заканчивается на /exec)
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGkRlXWeIrpfARJASsHkx5iUvF_lbDhk_mL056khOjqZu11g1z2UqUgmFHkpVqinle/exec";
+  
+  // Ссылка на картинку карты
+  const mapImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Map_of_San_Andreas.jpg/1200px-Map_of_San_Andreas.jpg";
+
+  // =====================================================================
+  // ЛОГИКА (МЕНЯТЬ НЕ НУЖНО)
+  // =====================================================================
+
+  const mapImage = document.getElementById('map-image');
+  const mapContainer = document.getElementById('map-container');
+  const mapLayer = document.getElementById('map-layer');
+  const markersContainer = document.getElementById('markers-container');
+  const btnAddMode = document.getElementById('btn-add-mode');
+  const modeIndicator = document.getElementById('mode-indicator');
+
+  let isAdmin = false;
+  let isAddMode = false;
+  let businesses = [];
+
+  // Panzoom
+  const panzoom = Panzoom(mapLayer, {
+    maxScale: 5,
+    minScale: 1,
+    contain: 'outside'
+  });
+  mapContainer.addEventListener('wheel', panzoom.zoomWithWheel);
+
+  // Скрываем кнопку добавления для обычных пользователей
+  btnAddMode.style.display = 'none';
+
+  // --- СЕКРЕТНЫЙ ВХОД (Ctrl + Shift + A) ---
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.code === 'KeyA') {
+      isAdmin = !isAdmin;
+      if (isAdmin) {
+        btnAddMode.style.display = 'inline-block';
+        modeIndicator.innerText = 'РЕЖИМ АДМИНА ВКЛЮЧЕН';
+        modeIndicator.style.color = '#ff4d4d';
+      } else {
+        btnAddMode.style.display = 'none';
+        modeIndicator.innerText = 'Режим: просмотр';
+        modeIndicator.style.color = '#888';
+        if (isAddMode) btnAddMode.click();
+      }
+    }
+  });
+
+  // --- ЗАГРУЗКА ДАННЫХ ИЗ GOOGLE ТАБЛИЦЫ ---
+  async function loadData() {
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("ВАШ_URL")) {
+      modeIndicator.innerText = "Укажите APPS_SCRIPT_URL в коде";
+      modeIndicator.style.color = "#ff4d4d";
+      return;
+    }
+    try {
+      const response = await fetch(APPS_SCRIPT_URL);
+      const data = await response.json();
+      businesses = data;
+      renderMarkers();
+    } catch (error) {
+      console.error("Ошибка загрузки:", error);
+      modeIndicator.innerText = 'Ошибка загрузки данных';
+      modeIndicator.style.color = '#ff4d4d';
+    }
+  }
+
+  // --- ОТРИСОВКА МЕТОК ---
+  function renderMarkers() {
+    markersContainer.innerHTML = '';
+
+    businesses.forEach((biz) => {
+      const marker = document.createElement('div');
+      marker.style.position = 'absolute';
+      marker.style.left = `calc(${biz.x}% - 10px)`;
+      marker.style.top = `calc(${biz.y}% - 10px)`;
+      marker.style.width = '20px';
+      marker.style.height = '20px';
+      marker.style.borderRadius = '50%';
+      marker.style.border = '3px solid #fff';
+      marker.style.boxShadow = '0 2px 5px rgba(0,0,0,0.5)';
+      marker.style.cursor = 'pointer';
+      marker.style.transition = 'transform 0.2s';
+      
+      if (biz.type === 'weapon') marker.style.backgroundColor = '#ff4d4d';
+      else if (biz.type === 'food') marker.style.backgroundColor = '#4da6ff';
+      else if (biz.type === 'car') marker.style.backgroundColor = '#ffd700';
+      else marker.style.backgroundColor = '#ffffff';
+
+      marker.onmouseover = () => marker.style.transform = 'scale(1.3)';
+      marker.onmouseout = () => marker.style.transform = 'scale(1)';
+
+      marker.onclick = (e) => {
+        e.stopPropagation();
+        alert(`Бизнес: ${biz.name}\nТип: ${biz.type}\nКоординаты: ${biz.x}, ${biz.y}`);
+      };
+
+      markersContainer.appendChild(marker);
+    });
+  }
+
+  // --- РЕЖИМ ДОБАВЛЕНИЯ ---
+  btnAddMode.onclick = () => {
+    isAddMode = !isAddMode;
+    if (isAddMode) {
+      btnAddMode.style.background = '#ff4d4d';
+      btnAddMode.innerText = '❌ Отменить добавление';
+      modeIndicator.innerText = 'Кликните по карте, чтобы поставить точку';
+      modeIndicator.style.color = '#4da6ff';
+      mapContainer.style.cursor = 'crosshair';
+    } else {
+      btnAddMode.style.background = '#4da6ff';
+      btnAddMode.innerText = '➕ Добавить точку';
+      modeIndicator.innerText = 'РЕЖИМ АДМИНА ВКЛЮЧЕН';
+      modeIndicator.style.color = '#ff4d4d';
+      mapContainer.style.cursor = 'grab';
+    }
+  };
+
+  // --- КЛИК ПО КАРТЕ (ДОБАВЛЕНИЕ ТОЧКИ) ---
+  mapContainer.addEventListener('click', async (e) => {
+    if (!isAddMode || !isAdmin) return;
+
+    const rect = mapContainer.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    const name = prompt("Введите название бизнеса:");
+    if (!name) return;
+    const type = prompt("Введите тип (weapon, food, car, other):", "other");
+
+    const newBiz = {
+      id: businesses.length > 0 ? Math.max(...businesses.map(b => Number(b.id))) + 1 : 1,
+      name: name,
+      x: parseFloat(x.toFixed(2)),
+      y: parseFloat(y.toFixed(2)),
+      type: type || 'other'
+    };
+
+    btnAddMode.innerText = 'Сохранение...';
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(newBiz)
+      });
+      
+      businesses.push(newBiz);
+      renderMarkers();
+      alert("Точка успешно добавлена в таблицу!");
+    } catch (error) {
+      alert("Ошибка при сохранении. Проверьте настройки.");
+      console.error(error);
+    } finally {
+      btnAddMode.innerText = '➕ Добавить точку';
+      btnAddMode.style.background = '#4da6ff';
+      isAddMode = false;
+      mapContainer.style.cursor = 'grab';
+    }
+  });
+
+  // --- ЗАПУСК ---
+  mapImage.onload = () => {
+    mapImage.src = mapImageUrl;
+    loadData();
+  };
+  mapImage.src = mapImageUrl;
+  if (mapImage.complete) loadData();
+</script>
 
 </body>
 </html>
